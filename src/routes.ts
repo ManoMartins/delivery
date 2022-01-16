@@ -7,6 +7,7 @@ import { AuthenticateClientController } from "./modules/account/useCases/authent
 import { UpdateDeliverymanController } from "./modules/deliveries/useCases/updateDeliveryman/UpdateDeliverymanController"
 import { CreateDeliverymanController } from "./modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController"
 import { AuthenticateDeliverymanController } from "./modules/account/useCases/authenticateDeliveryman/AuthenticateDeliverymanController"
+import { FindAllDeliveriesDeliverymanController } from "./modules/deliveryman/useCases/findAllDeliveries/FindAllDeliveriesDeliverymanController"
 import { ensureAuthenticateClient } from "./middlewares/ensureAuthenticateClient"
 import { ensureAuthenticateDeliveryman } from "./middlewares/ensureAuthenticateDeliveryman"
 
@@ -20,6 +21,7 @@ const createDeliverymanController = new CreateDeliverymanController()
 const updateDeliverymanController = new UpdateDeliverymanController()
 const authenticateClientController = new AuthenticateClientController()
 const authenticateDeliverymanController = new AuthenticateDeliverymanController()
+const findAllDeliveriesDeliverymanController = new FindAllDeliveriesDeliverymanController()
 
 
 routes.get("/delivery/available", ensureAuthenticateDeliveryman, findAllAvailableController.handle)
@@ -30,6 +32,7 @@ routes.get("/clients/deliveries", ensureAuthenticateClient, findAllDeliveriesCon
 routes.post("/clients", createClientController.handle)
 routes.post("/clients/authenticate", authenticateClientController.handle)
 
+routes.get("/deliveryman/deliveries", ensureAuthenticateDeliveryman, findAllDeliveriesDeliverymanController.handle)
 routes.post("/deliveryman", createDeliverymanController.handle)
 routes.post("/deliveryman/authenticate", authenticateDeliverymanController.handle)
 
