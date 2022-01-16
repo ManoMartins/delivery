@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { CreateClientController } from "./modules/clients/useCases/createClient/CreateClientController"
 import { CreateDeliveryController } from "./modules/deliveries/useCases/createDelivery/CreateDeliveryController"
+import { FindAllAvailableController } from "./modules/deliveries/useCases/findAllAvailable/FindAllAvailableController"
 import { AuthenticateClientController } from "./modules/account/useCases/authenticateClient/AuthenticateClientController"
 import { CreateDeliverymanController } from "./modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController"
 import { AuthenticateDeliverymanController } from "./modules/account/useCases/authenticateDeliveryman/AuthenticateDeliverymanController"
@@ -10,10 +11,12 @@ const routes = Router()
 
 const createClientController = new CreateClientController()
 const createDeliveryController = new CreateDeliveryController()
+const findAllAvailableController = new FindAllAvailableController()
 const createDeliverymanController = new CreateDeliverymanController()
 const authenticateClientController = new AuthenticateClientController()
 const authenticateDeliverymanController = new AuthenticateDeliverymanController()
 
+routes.get("/delivery/available", findAllAvailableController.handle)
 routes.post("/delivery", ensureAuthenticateClient, createDeliveryController.handle)
 
 routes.post("/clients", createClientController.handle)
