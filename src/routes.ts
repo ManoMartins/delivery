@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { CreateClientController } from "./modules/clients/useCases/createClient/CreateClientController"
+import { UpdateEndDateController } from "./modules/deliveries/useCases/updateEndDate/UpdateEndDateController"
 import { CreateDeliveryController } from "./modules/deliveries/useCases/createDelivery/CreateDeliveryController"
 import { FindAllAvailableController } from "./modules/deliveries/useCases/findAllAvailable/FindAllAvailableController"
 import { FindAllDeliveriesController } from "./modules/clients/useCases/findAllDeliveries/FindAllDeliveriesController"
@@ -14,6 +15,7 @@ import { ensureAuthenticateDeliveryman } from "./middlewares/ensureAuthenticateD
 const routes = Router()
 
 const createClientController = new CreateClientController()
+const updateEndDateController = new UpdateEndDateController()
 const createDeliveryController = new CreateDeliveryController()
 const findAllAvailableController = new FindAllAvailableController()
 const findAllDeliveriesController = new FindAllDeliveriesController()
@@ -27,6 +29,7 @@ const findAllDeliveriesDeliverymanController = new FindAllDeliveriesDeliverymanC
 routes.get("/delivery/available", ensureAuthenticateDeliveryman, findAllAvailableController.handle)
 routes.post("/delivery", ensureAuthenticateClient, createDeliveryController.handle)
 routes.patch("/delivery/updateDeliveryMan/:id", ensureAuthenticateDeliveryman, updateDeliverymanController.handle)
+routes.patch("/delivery/updateEndDate/:id", ensureAuthenticateDeliveryman, updateEndDateController.handle)
 
 routes.get("/clients/deliveries", ensureAuthenticateClient, findAllDeliveriesController.handle)
 routes.post("/clients", createClientController.handle)
