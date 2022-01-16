@@ -12,7 +12,7 @@ export class CreateClientUseCase {
     password,
   }: ICreateClient) {
     const clientAlreadyExists = await prisma.clients.findFirst({
-      where: { username: { mode: "insensitive" } },
+      where: { username: { mode: "insensitive", contains: username } },
     })
 
     if (clientAlreadyExists) {
